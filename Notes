@@ -1,0 +1,29 @@
+To perform operations over the elements of the data source and aggregate their results,
+we need three parts:
+
+- source
+- intermediate operation(s)
+- terminal operation.
+
+It is important to note that a stream can't be reused after calling a terminal operation.
+If it is tried to invoke an operation over a terminated stream, illegalstateexception will be thrown.
+-----------------------------------------------------------------------------------------------------
+
+intermediate operations are of type lazy invocation -> They wouldn't execute before a call to terminal operation
+
+------------------------------------------------------------------------------------------------------
+
+The JDK contains many terminal operations (such as average, sum, min, max, and count) that return one value by combining
+the contents of a stream. These operations are called reduction operations.
+The JDK also contains reduction operations that return a collection instead of a single value.
+Many reduction operations perform a specific task, such as finding the average of values or grouping elements into categories.
+However, the JDK provides you with the general-purpose reduction operations reduce and collect
+
+
+When reducing with parallel stream we must obey some rules:
+
+When we use parallelized streams, we should make sure that reduce() or any other aggregate operations executed on the streams are:
+
+associative: the result is not affected by the order of the operands
+non-interfering: the operation doesn't affect the data source
+stateless and deterministic: the operation doesn't have state and produces the same output for a given input
