@@ -36,9 +36,7 @@ public class Reduction {
 
         // Another way for finding the eldest student
         final Optional<Integer> max = students.stream().map(Student::age).max(Integer::compareTo);
-        if (max.isPresent()) {
-            System.out.println("Eldest students age is " + max.get());
-        }
+        max.ifPresent(maxAge -> System.out.println("Eldest student is of age " + maxAge));
 
         final int sum = students.stream().map(Student::age).mapToInt(x -> x).sum();
 
@@ -61,7 +59,7 @@ public class Reduction {
          * Reduce with parallel streams
          */
 
-        // Lets create a bigger list
+        // Let's create bigger list
         final List<Integer> values = IntStream.iterate(1, i -> i + 1).limit(2_000).boxed().toList();
 
         final Integer parallelResult = values.parallelStream().reduce(0, Integer::sum, Integer::sum);
@@ -76,9 +74,7 @@ public class Reduction {
             Optional<String> longestWord = Files.lines(Path.of("./TestFile.txt"))
                     .reduce((word1, word2) -> word1.length() > word2.length() ? word1 : word2);
 
-            if (longestWord.isPresent()) {
-                System.out.println("Longest word is " + longestWord.get());
-            }
+            longestWord.ifPresent(word -> System.out.println("Longest word is " + word));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
